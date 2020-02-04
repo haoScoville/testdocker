@@ -1,7 +1,7 @@
-FROM node
-LABEL maintainer hacaohao@gmail.com
-WORKDIR /todo
-COPY . /todo/
+FROM node:12.14
+WORKDIR /usr/src/app
+COPY package*.json /usr/src/app/
 RUN npm install
+COPY . /usr/src/app/
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

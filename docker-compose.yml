@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  db:
+    build: ./database
+    image: test-docker-db
+    container_name: test-docker-db
+    ports:
+        - "5434:5432"
+    networks:
+        - backend
+    volumes:
+        - pgdata:/var/lib/postgresql/data:rw
+    env_file:
+        - ./database/.env # configure postgres
+  api:
+    build: .
+    networks:
+        - backend
+    image: test-docker-api
+    container_name: test-docker-api
+    ports:
+        - "3000:3000"
+    depends_on:
+        - db
+    external_links:
+        - test-docker-db
+    command: ["./wait-for-it.sh", "db:5434", "--", "npm", "run", "start"]
+volumes:
+    pgdata:
+      name: test-docker
+networks:
+  backend:
+    driver: bridge
