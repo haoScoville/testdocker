@@ -1,7 +1,7 @@
 var username = process.env.POSTGRES_USER;
 var password = process.env.POSTGRES_PASSWORD;
 var host = process.env.POSTGRES_HOST;
-var port = 5434;
+var port = 5432;
 var database = process.env.POSTGRES_DB;
 
 const Sequelize = require('sequelize');
